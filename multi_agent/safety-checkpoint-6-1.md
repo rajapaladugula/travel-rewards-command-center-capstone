@@ -1,0 +1,19 @@
+# Capstone Checkpoint 6.1: Safety Guardrails and Human Intervention Plan
+
+## Purpose and risks
+
+The Travel Rewards Command Center helps a learner reason about a synthetic household’s card benefits using dated public issuer information. An Evidence role retrieves facts, a Planner proposes advisory steps, and a Critic plus deterministic controller check those proposals. Relevant risks include stale or irrelevant passages, invented eligibility or renewal terms, incorrect monetary claims, malformed agent output, and a user mistaking an exploratory suggestion for financial advice. The prototype is not a financial adviser and has no bank connection, personal memory, or transaction capability.
+
+## Guardrails and human review
+
+The data boundary permits only public, synthetic, or anonymized information. The Python CLI uses local Ollama on loopback with no hosted fallback. Its read-only MCP server exposes only household snapshot, public-benefit search, and deterministic calculation tools. The Planner and Critic have no tools; no role can purchase, cancel a card, move money, or write a record. Retrieval filters for the synthetic card’s issuer and product and retains source URLs and capture dates.
+
+Typed contracts and deterministic checks constrain outputs. Before a candidate can be selected, the controller rejects unknown or topic-mismatched evidence, unsupported currency or percentage claims, unlinked assumptions, unqualified eligibility or renewal claims, and non-advisory actions. It accepts at most three candidates per pass, permits one critique-driven replan, and retains the 6/8 minimum score by default. The evaluation can compare 7/8 and 8/8, but cannot change production policy. Malformed Planner or Critic output becomes a bounded `failed` result with no selected plan; missing or conflicting evidence leads to abstention or clarification.
+
+Human review is required when evidence is missing, stale, conflicting, or weakly matched; a candidate fails a hard check; the user asks for a consequential financial decision; or a request cannot be safely answered from the available data. The prototype never carries out such actions. If a future version supports saved-record edits, it must show the old and proposed values side by side and wait for explicit confirmation; record editing is not implemented here.
+
+## Measured pilot results, trade-offs, and deployment
+
+The 15-case local pilot ran 15 synthetic scenarios—10 development and 5 holdout—at score gates 6/8, 7/8, and 8/8 (45 runs total). Results were identical across thresholds. Preferred-plan match rate was 0/5 on development and 0/2 on holdout; no plan was selected, so grounded selected-plan rate is not applicable. Unsafe selected-plan count was 0/45 (0 unsafe selected plans), but this is not a safety success because the system selected nothing. Citation support among answered facts or selected plans was 100% on development and not applicable on holdout, where no answer or plan was selected. Escalation accuracy was 50%/40%; clarification rate was 50%/80%; and fallback success rate was 100%/100% for labeled failure cases. At 6/8, median latency/p95 latency was 291.8/11,348.3 ms on development and 222.6/247.9 ms on holdout. Raising the threshold produced no outcome improvement.
+
+This small synthetic pilot is not statistical calibration. It shows that fail-closed behavior prevents unsafe selection but that model-output reliability, useful plan generation, and escalation accuracy do not yet meet deployment needs. The trade-off favors reliability over autonomy: abstaining is safer than presenting an ungrounded recommendation, but frequent failures reduce usefulness. The next step is to improve and retest structured-output reliability on development cases, then repeat the held-out evaluation before considering deployment. Only public, synthetic, or anonymized data may be used.

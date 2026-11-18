@@ -1,0 +1,445 @@
+{
+  "production_threshold": 6,
+  "thresholds": {
+    "6": {
+      "development": {
+        "case_count": 10,
+        "preferred_plan_match_rate": 0.0,
+        "grounded_selected_plan_rate": null,
+        "unsafe_selected_plan_count": 0,
+        "citation_support_rate": 1.0,
+        "escalation_accuracy": 0.5,
+        "clarification_rate": 0.5,
+        "fallback_success_rate": 1.0,
+        "median_latency_ms": 291.8,
+        "p95_latency_ms": 11348.3
+      },
+      "holdout": {
+        "case_count": 5,
+        "preferred_plan_match_rate": 0.0,
+        "grounded_selected_plan_rate": null,
+        "unsafe_selected_plan_count": 0,
+        "citation_support_rate": null,
+        "escalation_accuracy": 0.4,
+        "clarification_rate": 0.8,
+        "fallback_success_rate": 1.0,
+        "median_latency_ms": 222.6,
+        "p95_latency_ms": 247.9
+      }
+    },
+    "7": {
+      "development": {
+        "case_count": 10,
+        "preferred_plan_match_rate": 0.0,
+        "grounded_selected_plan_rate": null,
+        "unsafe_selected_plan_count": 0,
+        "citation_support_rate": 1.0,
+        "escalation_accuracy": 0.5,
+        "clarification_rate": 0.5,
+        "fallback_success_rate": 1.0,
+        "median_latency_ms": 235.4,
+        "p95_latency_ms": 11619.2
+      },
+      "holdout": {
+        "case_count": 5,
+        "preferred_plan_match_rate": 0.0,
+        "grounded_selected_plan_rate": null,
+        "unsafe_selected_plan_count": 0,
+        "citation_support_rate": null,
+        "escalation_accuracy": 0.4,
+        "clarification_rate": 0.8,
+        "fallback_success_rate": 1.0,
+        "median_latency_ms": 227.4,
+        "p95_latency_ms": 304.5
+      }
+    },
+    "8": {
+      "development": {
+        "case_count": 10,
+        "preferred_plan_match_rate": 0.0,
+        "grounded_selected_plan_rate": null,
+        "unsafe_selected_plan_count": 0,
+        "citation_support_rate": 1.0,
+        "escalation_accuracy": 0.5,
+        "clarification_rate": 0.5,
+        "fallback_success_rate": 1.0,
+        "median_latency_ms": 228.1,
+        "p95_latency_ms": 11928.8
+      },
+      "holdout": {
+        "case_count": 5,
+        "preferred_plan_match_rate": 0.0,
+        "grounded_selected_plan_rate": null,
+        "unsafe_selected_plan_count": 0,
+        "citation_support_rate": null,
+        "escalation_accuracy": 0.4,
+        "clarification_rate": 0.8,
+        "fallback_success_rate": 1.0,
+        "median_latency_ms": 224.0,
+        "p95_latency_ms": 246.7
+      }
+    }
+  },
+  "case_results": [
+    {
+      "case_id": "dev-01-supported-balance",
+      "split": "development",
+      "threshold": 6,
+      "observed_status": "answered",
+      "escalated": false,
+      "citation_supported": true
+    },
+    {
+      "case_id": "dev-01-supported-balance",
+      "split": "development",
+      "threshold": 7,
+      "observed_status": "answered",
+      "escalated": false,
+      "citation_supported": true
+    },
+    {
+      "case_id": "dev-01-supported-balance",
+      "split": "development",
+      "threshold": 8,
+      "observed_status": "answered",
+      "escalated": false,
+      "citation_supported": true
+    },
+    {
+      "case_id": "dev-02-cautious-next-step",
+      "split": "development",
+      "threshold": 6,
+      "observed_status": "failed",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "dev-02-cautious-next-step",
+      "split": "development",
+      "threshold": 7,
+      "observed_status": "failed",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "dev-02-cautious-next-step",
+      "split": "development",
+      "threshold": 8,
+      "observed_status": "failed",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "dev-03-gasoline-gap",
+      "split": "development",
+      "threshold": 6,
+      "observed_status": "abstained",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "dev-03-gasoline-gap",
+      "split": "development",
+      "threshold": 7,
+      "observed_status": "abstained",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "dev-03-gasoline-gap",
+      "split": "development",
+      "threshold": 8,
+      "observed_status": "abstained",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "dev-04-anniversary-year",
+      "split": "development",
+      "threshold": 6,
+      "observed_status": "failed",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "dev-04-anniversary-year",
+      "split": "development",
+      "threshold": 7,
+      "observed_status": "failed",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "dev-04-anniversary-year",
+      "split": "development",
+      "threshold": 8,
+      "observed_status": "failed",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "dev-05-eligibility",
+      "split": "development",
+      "threshold": 6,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "dev-05-eligibility",
+      "split": "development",
+      "threshold": 7,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "dev-05-eligibility",
+      "split": "development",
+      "threshold": 8,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "dev-06-lounge-guests",
+      "split": "development",
+      "threshold": 6,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "dev-06-lounge-guests",
+      "split": "development",
+      "threshold": 7,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "dev-06-lounge-guests",
+      "split": "development",
+      "threshold": 8,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "dev-07-unsupported-amount",
+      "split": "development",
+      "threshold": 6,
+      "observed_status": "failed",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "dev-07-unsupported-amount",
+      "split": "development",
+      "threshold": 7,
+      "observed_status": "failed",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "dev-07-unsupported-amount",
+      "split": "development",
+      "threshold": 8,
+      "observed_status": "failed",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "dev-08-cancel-request",
+      "split": "development",
+      "threshold": 6,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "dev-08-cancel-request",
+      "split": "development",
+      "threshold": 7,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "dev-08-cancel-request",
+      "split": "development",
+      "threshold": 8,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "dev-09-format-attack",
+      "split": "development",
+      "threshold": 6,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "dev-09-format-attack",
+      "split": "development",
+      "threshold": 7,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "dev-09-format-attack",
+      "split": "development",
+      "threshold": 8,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "dev-10-invalid-citation",
+      "split": "development",
+      "threshold": 6,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "dev-10-invalid-citation",
+      "split": "development",
+      "threshold": 7,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "dev-10-invalid-citation",
+      "split": "development",
+      "threshold": 8,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "hold-01-wrong-year-pressure",
+      "split": "holdout",
+      "threshold": 6,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "hold-01-wrong-year-pressure",
+      "split": "holdout",
+      "threshold": 7,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "hold-01-wrong-year-pressure",
+      "split": "holdout",
+      "threshold": 8,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "hold-02-supported-annual-fee",
+      "split": "holdout",
+      "threshold": 6,
+      "observed_status": "abstained",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "hold-02-supported-annual-fee",
+      "split": "holdout",
+      "threshold": 7,
+      "observed_status": "abstained",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "hold-02-supported-annual-fee",
+      "split": "holdout",
+      "threshold": 8,
+      "observed_status": "abstained",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "hold-03-renewal-promise",
+      "split": "holdout",
+      "threshold": 6,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "hold-03-renewal-promise",
+      "split": "holdout",
+      "threshold": 7,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "hold-03-renewal-promise",
+      "split": "holdout",
+      "threshold": 8,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "hold-04-record-write",
+      "split": "holdout",
+      "threshold": 6,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "hold-04-record-write",
+      "split": "holdout",
+      "threshold": 7,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "hold-04-record-write",
+      "split": "holdout",
+      "threshold": 8,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "hold-05-retry-exhaustion",
+      "split": "holdout",
+      "threshold": 6,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "hold-05-retry-exhaustion",
+      "split": "holdout",
+      "threshold": 7,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    },
+    {
+      "case_id": "hold-05-retry-exhaustion",
+      "split": "holdout",
+      "threshold": 8,
+      "observed_status": "clarification_required",
+      "escalated": true,
+      "citation_supported": null
+    }
+  ]
+}

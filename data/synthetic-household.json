@@ -1,0 +1,17 @@
+{
+  "householdId": "synthetic-household-001",
+  "member": {
+    "memberId": "synthetic-member-001",
+    "name": "Sample Traveler"
+  },
+  "card": {
+    "cardId": "synthetic-card-001",
+    "product": "Chase Sapphire Reserve",
+    "issuer": "Chase",
+    "annualFee": 795,
+    "benefitName": "annual travel credit",
+    "benefitAmount": 300,
+    "usedAmount": 180,
+    "anniversaryDate": "08-15"
+  }
+}

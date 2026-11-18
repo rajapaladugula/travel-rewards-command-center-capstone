@@ -1,0 +1,6 @@
+/node_modules/
+/multi_agent/.venv/
+**/__pycache__/
+**/.pytest_cache/
+*.py[cod]
+**/*.egg-info/

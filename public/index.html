@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f6f2">
+  <title>Travel Rewards Assistant — Local RAG Demo</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Travel Rewards Assistant home">
+        <span class="brand-mark" aria-hidden="true">TR</span>
+        <span>Travel Rewards <span class="brand-light">Command Center</span></span>
+      </a>
+      <span class="local-badge"><span class="status-dot" aria-hidden="true"></span> Local demo · Synthetic data</span>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">CAPSTONE · RETRIEVAL-AUGMENTED ASSISTANT</p>
+        <h1 id="page-title">Good decisions start with<br class="desktop-break"> grounded answers.</h1>
+        <p class="intro-copy">Compare a prompt-only response with an answer grounded in published card benefits and a fictional household record.</p>
+      </section>
+
+      <section class="question-card" aria-labelledby="question-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">ASK THE ASSISTANT</p>
+            <h2 id="question-title">What would you like to know?</h2>
+          </div>
+          <span class="step-label">01 / Ask</span>
+        </div>
+        <form id="question-form">
+          <label for="question">Your question</label>
+          <textarea id="question" name="question" rows="3" maxlength="300" required aria-describedby="question-help question-count">Is the annual travel credit based on a calendar year or an account-anniversary year?</textarea>
+          <div class="input-meta">
+            <span id="question-help">Answers use a saved public-source snapshot and synthetic card data.</span>
+            <span id="question-count" aria-live="polite">0 / 300</span>
+          </div>
+          <div class="form-footer">
+            <div class="examples" aria-label="Example questions">
+              <span class="examples-label">Try</span>
+              <button class="example-question" type="button" data-example="Is the annual travel credit based on a calendar year or an account-anniversary year?">Credit timing</button>
+              <button class="example-question" type="button" data-example="Does this card earn a bonus on gasoline purchases?">Unsupported benefit</button>
+            </div>
+            <button class="primary-button" id="submit-button" type="submit">
+              <span class="button-label">Compare answers</span>
+              <span class="button-arrow" aria-hidden="true">→</span>
+            </button>
+          </div>
+        </form>
+        <p class="status-message" id="status" role="status" aria-live="polite">Ready when you are.</p>
+      </section>
+
+      <section class="results" id="results" aria-labelledby="results-title" aria-busy="false">
+        <div class="section-heading results-heading">
+          <div>
+            <p class="eyebrow">THE REASONING, MADE VISIBLE</p>
+            <h2 id="results-title">Two answers. One source of truth.</h2>
+          </div>
+          <span class="step-label">02 / Compare</span>
+        </div>
+
+        <div class="answer-grid">
+          <article class="answer-card baseline-card" aria-labelledby="baseline-title">
+            <div class="answer-card-header">
+              <span class="answer-icon baseline-icon" aria-hidden="true">—</span>
+              <span class="mode-tag">NO RETRIEVAL</span>
+            </div>
+            <h3 id="baseline-title">Prompt-only baseline</h3>
+            <p class="answer-copy" id="baseline-answer">Submit a question to see what the household record alone can answer.</p>
+            <p class="card-footnote">Uses the synthetic household record only.</p>
+          </article>
+
+          <article class="answer-card grounded-card" aria-labelledby="grounded-title">
+            <div class="answer-card-header">
+              <span class="answer-icon grounded-icon" aria-hidden="true">✳</span>
+              <span class="mode-tag grounded-tag">WITH RETRIEVAL</span>
+            </div>
+            <h3 id="grounded-title">Grounded answer</h3>
+            <p class="answer-copy" id="grounded-answer">Retrieved evidence will appear here.</p>
+            <p class="card-footnote">Uses local Ollama models and cited public passages.</p>
+          </article>
+        </div>
+
+        <article class="calculation-card" aria-labelledby="calculation-title">
+          <div class="calculation-label">
+            <span class="calculation-icon" aria-hidden="true">$</span>
+            <div>
+              <h3 id="calculation-title">Synthetic benefit calculation</h3>
+              <p>Kept separate from generated prose</p>
+            </div>
+          </div>
+          <div class="calculation-equation" id="calculation" aria-live="polite">
+            <span id="benefit-amount">—</span><span class="operator">−</span><span id="used-amount">—</span><span class="operator">=</span><strong id="remaining-amount">—</strong>
+          </div>
+        </article>
+
+        <section class="evidence-section" aria-labelledby="evidence-title">
+          <div class="evidence-heading">
+            <div>
+              <p class="eyebrow">GROUNDING</p>
+              <h2 id="evidence-title">Retrieved evidence</h2>
+            </div>
+            <span class="evidence-count" id="evidence-count">0 passages</span>
+          </div>
+          <div class="evidence-list" id="evidence-list" aria-live="polite">
+            <p class="empty-state">Relevant passages and citations will appear here after retrieval.</p>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>Read-only prototype · No personal or account data</span>
+      <span>Sources are snapshots; verify issuer terms before relying on them.</span>
+    </footer>
+  </div>
+</body>
+</html>
