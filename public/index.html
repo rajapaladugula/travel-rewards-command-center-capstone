@@ -43,7 +43,11 @@
           <div class="form-footer">
             <div class="examples" aria-label="Example questions">
               <span class="examples-label">Try</span>
+              <button class="example-question" type="button" data-example="How much credit is left?">Credit left</button>
               <button class="example-question" type="button" data-example="Is the annual travel credit based on a calendar year or an account-anniversary year?">Credit timing</button>
+              <button class="example-question" type="button" data-example="What are the benefits of this card?">All benefits</button>
+              <button class="example-question" type="button" data-example="What is my annual fee?">Annual fee</button>
+              <button class="example-question" type="button" data-example="What can you help me with?">What can you do?</button>
               <button class="example-question" type="button" data-example="Does this card earn a bonus on gasoline purchases?">Unsupported benefit</button>
             </div>
             <button class="primary-button" id="submit-button" type="submit">
@@ -63,6 +67,8 @@
           </div>
           <span class="step-label">02 / Compare</span>
         </div>
+
+        <p class="agent-review-note" id="stale-note" role="status" hidden>The results below are for a previous question. Select “Compare answers” to refresh them.</p>
 
         <div class="answer-grid">
           <article class="answer-card baseline-card" aria-labelledby="baseline-title">
@@ -111,6 +117,41 @@
             <p class="empty-state">Relevant passages and citations will appear here after retrieval.</p>
           </div>
         </section>
+      </section>
+
+      <section class="agent-section" id="agent-section" aria-labelledby="agent-title" aria-busy="false">
+        <div class="section-heading results-heading">
+          <div>
+            <p class="eyebrow">MULTI-AGENT REVIEW</p>
+            <h2 id="agent-title">Same question, three specialist agents.</h2>
+          </div>
+          <span class="step-label">03 / Review</span>
+        </div>
+        <p class="agent-intro">Runs your question above through the Evidence agent, then (in plan mode) a Planner and a Critic coordinated by LangGraph. Every plan must pass deterministic safety checks and a 6/8 score gate; otherwise no plan is recommended. Advisory only: nothing is executed or changed.</p>
+        <form id="agent-form" class="agent-form">
+          <fieldset class="agent-modes">
+            <legend>Workflow</legend>
+            <label><input type="radio" name="agent-mode" value="fact" checked> Fact lookup <small>(Evidence agent only)</small></label>
+            <label><input type="radio" name="agent-mode" value="plan"> Cautious plan <small>(Evidence → Planner → Critic, up to a minute)</small></label>
+          </fieldset>
+          <button class="primary-button" id="agent-submit" type="submit">
+            <span class="button-label">Run multi-agent workflow</span>
+            <span class="button-arrow" aria-hidden="true">→</span>
+          </button>
+        </form>
+        <p class="status-message" id="agent-status" role="status" aria-live="polite">Ready. Uses the question above.</p>
+
+        <article class="answer-card agent-result" id="agent-result" hidden aria-labelledby="agent-result-title">
+          <div class="answer-card-header">
+            <span class="mode-tag grounded-tag" id="agent-outcome">—</span>
+            <span class="match-score" id="agent-meta"></span>
+          </div>
+          <h3 id="agent-result-title">Workflow result</h3>
+          <p class="answer-copy" id="agent-answer"></p>
+          <ul class="agent-gaps" id="agent-gaps" hidden></ul>
+          <div id="agent-candidates" class="agent-candidates"></div>
+          <div id="agent-citations" class="evidence-list"></div>
+        </article>
       </section>
     </main>
 

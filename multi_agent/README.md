@@ -1,6 +1,6 @@
 # Local Multi-Agent Travel Rewards Capstone
 
-This Python CLI is a local implementation of the Checkpoint 5.1 architecture. It uses three specialist roles: an evidence collector that builds typed facts and citations directly from read-only MCP results, plus CrewAI Planner and Critic roles coordinated by LangGraph. The browser UI remains on the existing single-agent RAG path; this CLI is a separate prototype.
+This Python CLI is a local implementation of the Checkpoint 5.1 architecture. It uses three specialist roles: an evidence collector that builds typed facts and citations directly from read-only MCP results, plus CrewAI Planner and Critic roles coordinated by LangGraph. The browser UI's **Multi-agent review** step runs this same CLI through the local Node server, so the CLI and the browser share one workflow.
 
 ## Requirements
 
@@ -53,7 +53,7 @@ The CLI prints a JSON result with cited evidence, candidate plans, validation sc
 
 ## Data and privacy limits
 
-The demo uses only `data/synthetic-household.json` and the public issuer snapshot in `data/chase-sapphire-reserve.md`. That public page is a dated capture from 2026-10-27, not a live statement of current card terms. Do not enter real card, account, household, or other sensitive information. No user-specific memory is persisted. No bank connection, live issuer crawling, or production UI integration is included.
+The demo uses only `data/synthetic-household.json` and the public issuer snapshot in `data/chase-sapphire-reserve.md`. That public page is a dated capture from 2026-10-27, not a live statement of current card terms. Do not enter real card, account, household, or other sensitive information. No user-specific memory is persisted. No bank connection, live issuer crawling, or production deployment is included; the only UI integration is the local, loopback-only browser step described in the parent README.
 
 ## Synthetic safety evaluation
 

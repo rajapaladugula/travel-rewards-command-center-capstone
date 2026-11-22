@@ -4,7 +4,10 @@ import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import { loadCorpus, loadSyntheticHousehold } from './corpus.mjs';
 import { retrieve } from './retriever.mjs';
-import { answerQuestion } from './agent.mjs';
+import { answerQuestion, classifyQuestion } from './agent.mjs';
+import { verifiedRetrieve } from './verified-retrieval.mjs';
+import { judgeWithOllama, rewriteWithOllama } from './local-judge.mjs';
+import { runAgentWorkflow as defaultRunAgentWorkflow } from './agent-bridge.mjs';
 
 const HOST = '127.0.0.1';
 const DEFAULT_PORT = 4173;
@@ -67,14 +70,25 @@ export async function runQuestion(question, deps = {}) {
   const loadHouseholdFn = deps.loadSyntheticHousehold ?? loadSyntheticHousehold;
   const retrieveFn = deps.retrieve ?? retrieve;
   const answerFn = deps.answerQuestion ?? answerQuestion;
+  const judge = deps.judge ?? judgeWithOllama;
+  const rewrite = deps.rewrite ?? rewriteWithOllama;
   const [chunks, household] = await Promise.all([loadCorpusFn(), loadHouseholdFn()]);
   const card = household.card;
   const baseline = await answerFn({ question, household, retrieveEnabled: false });
-  const evidence = await retrieveFn({ query: question, chunks, product: card.product, issuer: card.issuer });
-  const grounded = await answerFn({ question, household, retrievedChunks: evidence, retrieveEnabled: true });
+
+  // Help, record, and overview questions are answered by code. Everything else goes through verified retrieval:
+  // a similarity search, a deterministic distinctive-word gate, a strict model check, and at most one query rewrite.
+  const route = classifyQuestion(question, card);
+  let evidence = [];
+  if (route === 'overview') evidence = chunks.filter((chunk) => chunk.product === card.product && chunk.issuer === card.issuer);
+  else if (route === null) {
+    ({ results: evidence } = await verifiedRetrieve({ question, chunks, card, retrieveFn, judge, rewrite }));
+  }
+  const overview = route === 'overview';
+  const grounded = await answerFn({ question, household, retrievedChunks: evidence, retrieveEnabled: true, overview });
 
   return {
-    status: evidence.length ? 'grounded' : 'insufficient-evidence',
+    status: grounded.source === 'benefit-overview' ? 'overview' : evidence.length ? 'grounded' : grounded.source === 'household-record' ? 'record-answer' : grounded.source === 'app-help' ? 'help' : 'insufficient-evidence',
     baseline: baseline.answer,
     grounded: grounded.answer,
     benefitAmount: card.benefitAmount,
@@ -85,7 +99,8 @@ export async function runQuestion(question, deps = {}) {
   };
 }
 
-export function createServer({ runQuestion: runQuestionFn = runQuestion, publicDir = PUBLIC_DIR } = {}) {
+export function createServer({ runQuestion: runQuestionFn = runQuestion, runAgentWorkflow: runAgentWorkflowFn = defaultRunAgentWorkflow, publicDir = PUBLIC_DIR } = {}) {
+  let agentRunActive = false;
   return createHttpServer(async (request, response) => {
     const url = new URL(request.url ?? '/', 'http://127.0.0.1');
     const asset = ASSETS.get(url.pathname);
@@ -105,7 +120,7 @@ export function createServer({ runQuestion: runQuestionFn = runQuestion, publicD
       return;
     }
 
-    if (url.pathname !== '/api/ask') {
+    if (url.pathname !== '/api/ask' && url.pathname !== '/api/agents') {
       sendJson(response, 404, { error: 'Not found' });
       return;
     }
@@ -131,6 +146,29 @@ export function createServer({ runQuestion: runQuestionFn = runQuestion, publicD
     }
     if (body.question.length > MAX_QUESTION_LENGTH) {
       sendJson(response, 400, { error: `Question must be ${MAX_QUESTION_LENGTH} characters or fewer` });
+      return;
+    }
+
+    if (url.pathname === '/api/agents') {
+      if (body.mode !== 'fact' && body.mode !== 'plan') {
+        sendJson(response, 400, { error: 'Mode must be "fact" or "plan"' });
+        return;
+      }
+      if (agentRunActive) {
+        sendJson(response, 429, { error: 'A multi-agent workflow is already running. Wait for it to finish.' });
+        return;
+      }
+      agentRunActive = true;
+      try {
+        sendJson(response, 200, await runAgentWorkflowFn({ question: body.question.trim(), mode: body.mode }));
+      } catch (error) {
+        const known = error?.statusCode === 503 || error?.statusCode === 400;
+        sendJson(response, known ? error.statusCode : 500, {
+          error: known ? error.message : 'Unable to process the multi-agent request.',
+        });
+      } finally {
+        agentRunActive = false;
+      }
       return;
     }
 

@@ -50,3 +50,60 @@ test('returns 404 for unlisted asset paths', async () => {
     assert.equal(response.status, 404);
   });
 });
+
+test('page exposes the multi-agent review controls and renders results safely', async () => {
+  await withServer(async (baseUrl) => {
+    const html = await (await fetch(baseUrl)).text();
+    const script = await (await fetch(`${baseUrl}/app.js`)).text();
+
+    assert.match(html, /id="agent-form"/);
+    assert.match(html, /name="agent-mode"[^>]+value="fact"/);
+    assert.match(html, /name="agent-mode"[^>]+value="plan"/);
+    assert.match(html, /id="agent-status"[^>]+aria-live="polite"/i);
+    assert.match(html, /id="agent-answer"/);
+    assert.match(html, /id="agent-candidates"/);
+    assert.match(script, /\/api\/agents/);
+    assert.doesNotMatch(script, /innerHTML/);
+  });
+});
+
+test('page lists safety-gate gaps as separate items', async () => {
+  await withServer(async (baseUrl) => {
+    const html = await (await fetch(baseUrl)).text();
+    const script = await (await fetch(`${baseUrl}/app.js`)).text();
+    assert.match(html, /id="agent-gaps"/);
+    assert.match(script, /agentGaps/);
+  });
+});
+
+test('page offers example questions for record facts and for what the assistant can do', async () => {
+  await withServer(async (baseUrl) => {
+    const html = await (await fetch(baseUrl)).text();
+    const script = await (await fetch(`${baseUrl}/app.js`)).text();
+    assert.match(html, /data-example="How much credit is left\?"/);
+    assert.match(html, /data-example="What can you help me with\?"/);
+    assert.match(html, /data-example="What is my annual fee\?"/);
+    assert.match(script, /'help'/);
+  });
+});
+
+test('page offers a benefits overview example and a status for it', async () => {
+  await withServer(async (baseUrl) => {
+    const html = await (await fetch(baseUrl)).text();
+    const script = await (await fetch(`${baseUrl}/app.js`)).text();
+    assert.match(html, /data-example="What are the benefits of this card\?"/);
+    assert.match(script, /'overview'/);
+  });
+});
+
+test('page warns when the results shown belong to an earlier question', async () => {
+  await withServer(async (baseUrl) => {
+    const html = await (await fetch(baseUrl)).text();
+    const script = await (await fetch(`${baseUrl}/app.js`)).text();
+    assert.match(html, /id="stale-note"[^>]+hidden/);
+    assert.match(html, /id="stale-note"[^>]+role="status"/);
+    assert.match(script, /stale-note/);
+    assert.match(html, /previous question/i);
+    assert.match(script, /lastComparedQuestion/);
+  });
+});

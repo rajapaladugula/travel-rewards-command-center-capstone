@@ -147,3 +147,150 @@ test('API preserves baseline and explicit no-evidence state with no citations', 
     assert.deepEqual(result.citations, []);
   });
 });
+
+async function postAgents(baseUrl, body, contentType = 'application/json') {
+  return fetch(`${baseUrl}/api/agents`, { method: 'POST', headers: { 'content-type': contentType }, body: typeof body === 'string' ? body : JSON.stringify(body) });
+}
+
+test('POST /api/agents runs the workflow with the validated mode and question', async () => {
+  let received;
+  const result = { mode: 'fact', status: 'answered', answer: 'ok', evidence: { facts: [], citations: [], missing_data: [] }, candidates: [], candidate_reviews: [], selected_candidate_id: null, retry_count: 0 };
+  const server = createServer({ runAgentWorkflow: async (input) => { received = input; return result; } });
+  await usingServer(server, async (baseUrl) => {
+    const response = await postAgents(baseUrl, { question: ' How much remains? ', mode: 'fact' });
+    assert.equal(response.status, 200);
+    assert.deepEqual(await response.json(), result);
+    assert.deepEqual(received, { question: 'How much remains?', mode: 'fact' });
+  });
+});
+
+test('POST /api/agents validates mode, question, content type, and method', async () => {
+  const server = createServer({ runAgentWorkflow: async () => { throw new Error('must not run'); } });
+  await usingServer(server, async (baseUrl) => {
+    assert.equal((await postAgents(baseUrl, { question: 'q', mode: 'execute' })).status, 400);
+    assert.equal((await postAgents(baseUrl, { question: 'q' })).status, 400);
+    assert.equal((await postAgents(baseUrl, { question: '', mode: 'fact' })).status, 400);
+    assert.equal((await postAgents(baseUrl, { question: 'x'.repeat(301), mode: 'fact' })).status, 400);
+    assert.equal((await postAgents(baseUrl, '{"question":"q"}', 'text/plain')).status, 415);
+    assert.equal((await fetch(`${baseUrl}/api/agents`)).status, 405);
+  });
+});
+
+test('POST /api/agents allows one workflow at a time and then frees the slot', async () => {
+  let release;
+  const gate = new Promise((resolve) => { release = resolve; });
+  const result = { mode: 'fact', status: 'answered', answer: 'ok', evidence: {}, candidates: [], candidate_reviews: [], selected_candidate_id: null, retry_count: 0 };
+  const server = createServer({ runAgentWorkflow: async () => { await gate; return result; } });
+  await usingServer(server, async (baseUrl) => {
+    const first = postAgents(baseUrl, { question: 'q', mode: 'fact' });
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    assert.equal((await postAgents(baseUrl, { question: 'q', mode: 'fact' })).status, 429);
+    release();
+    assert.equal((await first).status, 200);
+    assert.equal((await postAgents(baseUrl, { question: 'q', mode: 'fact' })).status, 200);
+  });
+});
+
+test('POST /api/agents hides unexpected failure details and reports workflow unavailability', async () => {
+  const unavailable = Object.assign(new Error('The multi-agent workflow is unavailable. Check that local Ollama is running.'), { statusCode: 503 });
+  let error = unavailable;
+  const server = createServer({ runAgentWorkflow: async () => { throw error; } });
+  await usingServer(server, async (baseUrl) => {
+    const first = await postAgents(baseUrl, { question: 'q', mode: 'fact' });
+    assert.equal(first.status, 503);
+    assert.match((await first.json()).error, /multi-agent workflow/i);
+    error = new Error('SECRET /path');
+    const second = await postAgents(baseUrl, { question: 'q', mode: 'fact' });
+    assert.equal(second.status, 500);
+    assert.doesNotMatch(JSON.stringify(await second.json()), /SECRET/);
+  });
+});
+
+test('runQuestion labels a record-based answer instead of reporting insufficient evidence', async () => {
+  const household = { card: { product: 'Chase Sapphire Reserve', issuer: 'Chase', benefitName: 'annual travel credit', benefitAmount: 300, usedAmount: 180 } };
+  const result = await runQuestion('how much credit is left?', {
+    loadCorpus: async () => [],
+    loadSyntheticHousehold: async () => household,
+    retrieve: async () => [],
+    answerQuestion: async ({ retrieveEnabled }) => retrieveEnabled
+      ? { answer: 'The synthetic record shows $120 remaining.', remainingAmount: 120, citations: [], source: 'household-record' }
+      : { answer: 'baseline', remainingAmount: 120, citations: [] },
+  });
+  assert.equal(result.status, 'record-answer');
+  assert.equal(result.remainingAmount, 120);
+});
+
+test('runQuestion labels help answers with their own status', async () => {
+  const household = { card: { product: 'Chase Sapphire Reserve', issuer: 'Chase', benefitName: 'annual travel credit', benefitAmount: 300, usedAmount: 180 } };
+  const result = await runQuestion('what can you help me with?', {
+    loadCorpus: async () => [],
+    loadSyntheticHousehold: async () => household,
+    retrieve: async () => [],
+    answerQuestion: async ({ retrieveEnabled }) => ({ answer: 'help text', remainingAmount: 120, citations: [], ...(retrieveEnabled ? { source: 'app-help' } : {}) }),
+  });
+  assert.equal(result.status, 'help');
+});
+
+test('runQuestion lists all of the card\'s saved sections for an overview question when retrieval finds none', async () => {
+  const mk = (id, heading, product = 'Chase Sapphire Reserve') => ({ id, heading, text: heading, product, issuer: 'Chase', sourceUrl: 'https://example.com', capturedAt: '2026-10-27' });
+  const chunks = [mk('a', 'Credit A'), mk('b', 'Credit B'), mk('c', 'Other card credit', 'Other Card')];
+  const household = { card: { product: 'Chase Sapphire Reserve', issuer: 'Chase', benefitName: 'annual travel credit', benefitAmount: 300, usedAmount: 180 } };
+  let groundedInput;
+  const result = await runQuestion('what are the benefits of this card?', {
+    loadCorpus: async () => chunks,
+    loadSyntheticHousehold: async () => household,
+    retrieve: async () => [],
+    answerQuestion: async (input) => { if (input.retrieveEnabled) groundedInput = input; return { answer: 'overview', remainingAmount: 120, citations: [], ...(input.retrieveEnabled ? { source: 'benefit-overview' } : {}) }; },
+  });
+  assert.equal(result.status, 'overview');
+  assert.equal(groundedInput.overview, true);
+  assert.deepEqual(result.evidence.map((e) => e.id), ['a', 'b']);
+});
+
+test('runQuestion does not use the overview path for ordinary unsupported questions', async () => {
+  const household = { card: { product: 'Chase Sapphire Reserve', issuer: 'Chase', benefitName: 'annual travel credit', benefitAmount: 300, usedAmount: 180 } };
+  const result = await runQuestion('Does this card earn a bonus on gasoline purchases?', {
+    loadCorpus: async () => [{ id: 'a', heading: 'A', text: 'A', product: 'Chase Sapphire Reserve', issuer: 'Chase' }],
+    loadSyntheticHousehold: async () => household,
+    retrieve: async () => [],
+    answerQuestion: async () => ({ answer: 'insufficient evidence', remainingAmount: 120, citations: [] }),
+  });
+  assert.equal(result.status, 'insufficient-evidence');
+  assert.deepEqual(result.evidence, []);
+});
+
+const routedHousehold = { card: { product: 'Chase Sapphire Reserve', issuer: 'Chase', benefitName: 'annual travel credit', benefitAmount: 300, usedAmount: 180, annualFee: 795, anniversaryDate: '08-15' } };
+const routedChunks = ['A', 'B'].map((id) => ({ id, heading: `Credit ${id}`, text: `Credit ${id} text`, product: 'Chase Sapphire Reserve', issuer: 'Chase', sourceUrl: 'https://example.com', capturedAt: '2026-10-27' }));
+
+test('help, record, and overview questions skip retrieval, judging, and rewriting entirely', async () => {
+  for (const [question, status] of [['what can you help me with?', 'help'], ['how much credit is left?', 'record-answer'], ['what are the benefits of this card?', 'overview']]) {
+    const calls = [];
+    const result = await runQuestion(question, {
+      loadCorpus: async () => routedChunks,
+      loadSyntheticHousehold: async () => routedHousehold,
+      retrieve: async () => { calls.push('retrieve'); return []; },
+      judge: async () => { calls.push('judge'); return 'YES'; },
+      rewrite: async () => { calls.push('rewrite'); return null; },
+    });
+    assert.equal(result.status, status, question);
+    assert.deepEqual(calls, [], question);
+  }
+});
+
+test('ordinary questions use verified retrieval: the judge decides which passages become evidence', async () => {
+  const chunk = { ...routedChunks[0], score: 0.8 };
+  const common = {
+    loadCorpus: async () => routedChunks,
+    loadSyntheticHousehold: async () => routedHousehold,
+    retrieve: async () => [chunk],
+    rewrite: async () => null,
+    answerQuestion: async ({ retrieveEnabled, retrievedChunks }) => ({ answer: retrieveEnabled && retrievedChunks.length ? 'grounded text' : 'x', remainingAmount: 120, citations: [] }),
+  };
+  const accepted = await runQuestion('Tell me about credit A', { ...common, judge: async () => 'YES' });
+  assert.equal(accepted.status, 'grounded');
+  assert.deepEqual(accepted.evidence.map((e) => e.id), ['A']);
+
+  const rejected = await runQuestion('Tell me about credit A', { ...common, judge: async () => 'NO' });
+  assert.equal(rejected.status, 'insufficient-evidence');
+  assert.deepEqual(rejected.evidence, []);
+});

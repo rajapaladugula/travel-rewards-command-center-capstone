@@ -44,7 +44,63 @@ export async function generateWithOllama(prompt, { baseUrl = OLLAMA_BASE_URL, mo
   return answer.trim();
 }
 
-export async function answerQuestion({ question, household, retrievedChunks = [], retrieveEnabled, generate = generateWithOllama }) {
+const REMAINING_AMOUNT_QUESTION = /\b(?:how much|what(?:'s| is)?)\b[^?]*\b(?:left|remain(?:s|ing)?|unused)\b|\bremaining (?:credit|balance|benefit|amount)\b|\b(?:credit|benefit)\b[^?]*\b(?:left|remain(?:s|ing)?|unused)\b/i;
+const USED_AMOUNT_QUESTION = /\b(?:how much|have i|did i|i['\u2019]ve)\b[^?]*\b(?:used|spent|spend|use)\b/i;
+const ANNUAL_FEE_QUESTION = /\bannual fee\b/i;
+const ANNIVERSARY_DATE_QUESTION = /\b(?:when|what|which)\b[^?]*\banniversary\b|\banniversary date\b/i;
+const HELP_QUESTION = /\b(?:what can you|what do you do|how can you help|help me with|what are you able)\b/i;
+// Broad "what are all the benefits" questions have no single best passage, so semantic search cannot answer them;
+// the list is built by code from the saved sections, never generated.
+const OVERVIEW_QUESTION = /^(?=.*\b(?:benefits|perks|credits)\b)(?:\s*(?:what|which)\s+(?:are\s+)?(?:all\s+)?(?:the\s+|my\s+)?(?:benefits|perks|credits)\b|\s*(?:what|which)\s+(?:benefits|perks|credits)\b|\s*list\b|\s*(?:show|tell)\s+me\s+(?:all\s+)?(?:the\s+|my\s+)?(?:benefits|perks|credits)\b)(?![^?]*\b(?:lounge|lyft|paris|hotel|gas|gasoline|edit|global entry|precheck)\b)/i;
+
+export function isOverviewQuestion(question) {
+  return typeof question === 'string' && OVERVIEW_QUESTION.test(question);
+}
+
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+const HELP_ANSWER = 'I help you understand the travel benefits on a synthetic household card. I can answer questions about a benefit using a saved public Chase Sapphire Reserve snapshot, with a source and capture date; read amounts such as the credit remaining, the amount used, the annual fee, and the account-anniversary date from the synthetic household record; and, in the multi-agent step, suggest cautious next steps to verify. I cannot see real accounts, make purchases, cancel cards, move money, or give financial advice, and I will say so when the saved sources do not support an answer. Try: "How much credit is left?", "Is the travel credit based on a calendar year?", or "What is my annual fee?"';
+
+function formatAnniversary(value) {
+  const match = /^(\d{2})-(\d{2})$/.exec(value ?? '');
+  const month = match ? MONTHS[Number(match[1]) - 1] : undefined;
+  return month ? `${month} ${Number(match[2])}` : undefined;
+}
+
+// Facts that live in the synthetic household record are answered by code, never generated and never cited as public sources.
+// The synthetic record only describes the one saved travel credit, so a question that names another benefit must
+// never be answered from it (for example "how much of the Lyft credit is left?").
+const OTHER_BENEFIT = /\b(?:lyft|edit|lounges?|priority pass|global entry|tsa|precheck|nexus|hotels?|gas|gasoline|dining|groceries|grocery)\b/i;
+
+function answerFromRecord(question, card, remainingAmount) {
+  if (OTHER_BENEFIT.test(question)) return null;
+  const fromRecord = (text) => ({ answer: `${text} This comes from the synthetic household record, not a public source.`, source: 'household-record' });
+  if (REMAINING_AMOUNT_QUESTION.test(question)) {
+    return fromRecord(`The synthetic record shows $${remainingAmount} remaining of the $${card.benefitAmount} ${card.benefitName} ($${card.usedAmount} used).`);
+  }
+  if (USED_AMOUNT_QUESTION.test(question)) {
+    return fromRecord(`The synthetic record shows $${card.usedAmount} used of the $${card.benefitAmount} ${card.benefitName}.`);
+  }
+  if (ANNUAL_FEE_QUESTION.test(question) && Number.isFinite(card.annualFee)) {
+    return fromRecord(`The synthetic record lists an annual fee of $${card.annualFee}.`);
+  }
+  const anniversary = ANNIVERSARY_DATE_QUESTION.test(question) ? formatAnniversary(card.anniversaryDate) : undefined;
+  if (anniversary) return fromRecord(`The synthetic record lists the account anniversary as ${anniversary}.`);
+  return null;
+}
+
+// Routes a question before any retrieval. 'help', 'overview' and 'record' are answered by code with no model call;
+// null means the question needs verified retrieval over the public source.
+export function classifyQuestion(question, card) {
+  if (typeof question !== 'string') return null;
+  if (HELP_QUESTION.test(question)) return 'help';
+  if (isOverviewQuestion(question)) return 'overview';
+  if (!Number.isFinite(card?.benefitAmount) || !Number.isFinite(card?.usedAmount)) return null; // incomplete record: nothing to answer from
+  const remaining = calculateRemaining({ benefitAmount: card.benefitAmount, usedAmount: card.usedAmount });
+  return answerFromRecord(question, card, remaining) ? 'record' : null;
+}
+
+export async function answerQuestion({ question, household, retrievedChunks = [], retrieveEnabled, overview = false, generate = generateWithOllama }) {
   if (typeof question !== 'string' || !question.trim()) throw new Error('Question must be non-empty');
   const card = household?.card;
   if (!card) throw new Error('Synthetic household card is required');
@@ -56,6 +112,26 @@ export async function answerQuestion({ question, household, retrievedChunks = []
       remainingAmount,
       citations: [],
     };
+  }
+
+  if (overview && Array.isArray(retrievedChunks) && retrievedChunks.length > 0) {
+    const headings = [...new Set(retrievedChunks.map((chunk) => chunk.heading))];
+    const captured = retrievedChunks[0].capturedAt;
+    return {
+      answer: `The saved ${card.product} snapshot${captured ? ` (captured ${captured})` : ''} lists ${headings.length} benefits: ${headings.join('; ')}. Ask about any one of them for its terms.`,
+      remainingAmount,
+      citations: retrievedChunks.map(({ id, heading, sourceUrl, capturedAt }) => ({ id, heading, sourceUrl, capturedAt })),
+      source: 'benefit-overview',
+    };
+  }
+
+  const noEvidence = !Array.isArray(retrievedChunks) || retrievedChunks.length === 0;
+  if (noEvidence && HELP_QUESTION.test(question)) {
+    return { answer: HELP_ANSWER, remainingAmount, citations: [], source: 'app-help' };
+  }
+  if (noEvidence) {
+    const recordAnswer = answerFromRecord(question, card, remainingAmount);
+    if (recordAnswer) return { ...recordAnswer, remainingAmount, citations: [] };
   }
 
   if (!Array.isArray(retrievedChunks) || retrievedChunks.length === 0) {

@@ -1,0 +1,1505 @@
+{
+  "minScore": 0.7,
+  "variants": {
+    "strict": {
+      "development": {
+        "minScore": 0.7,
+        "answerable": {
+          "total": 17,
+          "correct": 7,
+          "wrongPassage": 0,
+          "abstained": 10
+        },
+        "unsupported": {
+          "total": 7,
+          "abstained": 7,
+          "falseAnswers": 0
+        },
+        "answerableRecall": 0.4117647058823529,
+        "cases": [
+          {
+            "id": "rq-01",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-02",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-03",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-04",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-05",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-06",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-07",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-08",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-09",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-10",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-11",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-12",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-13",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-14",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-15",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-16",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-17",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-18",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-19",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-20",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-21",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-22",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-23",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-24",
+            "outcome": "correct-abstention"
+          }
+        ]
+      },
+      "holdout": {
+        "minScore": 0.7,
+        "answerable": {
+          "total": 6,
+          "correct": 4,
+          "wrongPassage": 0,
+          "abstained": 2
+        },
+        "unsupported": {
+          "total": 6,
+          "abstained": 6,
+          "falseAnswers": 0
+        },
+        "answerableRecall": 0.6666666666666666,
+        "cases": [
+          {
+            "id": "rq-25",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-26",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-27",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-28",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-29",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-30",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-31",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-32",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-33",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-34",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-35",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-36",
+            "outcome": "correct-abstention"
+          }
+        ]
+      },
+      "holdout2": {
+        "minScore": 0.7,
+        "answerable": {
+          "total": 6,
+          "correct": 4,
+          "wrongPassage": 0,
+          "abstained": 2
+        },
+        "unsupported": {
+          "total": 6,
+          "abstained": 5,
+          "falseAnswers": 1
+        },
+        "answerableRecall": 0.6666666666666666,
+        "cases": [
+          {
+            "id": "rq-37",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-38",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-39",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-40",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-41",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-42",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-43",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-44",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-45",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-46",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-47",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-48",
+            "outcome": "false-answer"
+          }
+        ]
+      },
+      "holdout3": {
+        "minScore": 0.7,
+        "answerable": {
+          "total": 6,
+          "correct": 5,
+          "wrongPassage": 0,
+          "abstained": 1
+        },
+        "unsupported": {
+          "total": 6,
+          "abstained": 5,
+          "falseAnswers": 1
+        },
+        "answerableRecall": 0.8333333333333334,
+        "cases": [
+          {
+            "id": "rq-49",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-50",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-51",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-52",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-53",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-54",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-55",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-56",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-57",
+            "outcome": "false-answer"
+          },
+          {
+            "id": "rq-58",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-59",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-60",
+            "outcome": "correct-abstention"
+          }
+        ]
+      },
+      "holdout4": {
+        "minScore": 0.7,
+        "answerable": {
+          "total": 6,
+          "correct": 3,
+          "wrongPassage": 0,
+          "abstained": 3
+        },
+        "unsupported": {
+          "total": 6,
+          "abstained": 4,
+          "falseAnswers": 2
+        },
+        "answerableRecall": 0.5,
+        "cases": [
+          {
+            "id": "rq-61",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-62",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-63",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-64",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-65",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-66",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-67",
+            "outcome": "false-answer"
+          },
+          {
+            "id": "rq-68",
+            "outcome": "false-answer"
+          },
+          {
+            "id": "rq-69",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-70",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-71",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-72",
+            "outcome": "correct-abstention"
+          }
+        ]
+      }
+    },
+    "verified-loose": {
+      "development": {
+        "minScore": 0.7,
+        "answerable": {
+          "total": 17,
+          "correct": 9,
+          "wrongPassage": 0,
+          "abstained": 8
+        },
+        "unsupported": {
+          "total": 7,
+          "abstained": 7,
+          "falseAnswers": 0
+        },
+        "answerableRecall": 0.5294117647058824,
+        "cases": [
+          {
+            "id": "rq-01",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-02",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-03",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-04",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-05",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-06",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-07",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-08",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-09",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-10",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-11",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-12",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-13",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-14",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-15",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-16",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-17",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-18",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-19",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-20",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-21",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-22",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-23",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-24",
+            "outcome": "correct-abstention"
+          }
+        ]
+      },
+      "holdout": {
+        "minScore": 0.7,
+        "answerable": {
+          "total": 6,
+          "correct": 5,
+          "wrongPassage": 0,
+          "abstained": 1
+        },
+        "unsupported": {
+          "total": 6,
+          "abstained": 6,
+          "falseAnswers": 0
+        },
+        "answerableRecall": 0.8333333333333334,
+        "cases": [
+          {
+            "id": "rq-25",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-26",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-27",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-28",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-29",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-30",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-31",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-32",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-33",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-34",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-35",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-36",
+            "outcome": "correct-abstention"
+          }
+        ]
+      },
+      "holdout2": {
+        "minScore": 0.7,
+        "answerable": {
+          "total": 6,
+          "correct": 6,
+          "wrongPassage": 0,
+          "abstained": 0
+        },
+        "unsupported": {
+          "total": 6,
+          "abstained": 5,
+          "falseAnswers": 1
+        },
+        "answerableRecall": 1,
+        "cases": [
+          {
+            "id": "rq-37",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-38",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-39",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-40",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-41",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-42",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-43",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-44",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-45",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-46",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-47",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-48",
+            "outcome": "false-answer"
+          }
+        ]
+      },
+      "holdout3": {
+        "minScore": 0.7,
+        "answerable": {
+          "total": 6,
+          "correct": 6,
+          "wrongPassage": 0,
+          "abstained": 0
+        },
+        "unsupported": {
+          "total": 6,
+          "abstained": 5,
+          "falseAnswers": 1
+        },
+        "answerableRecall": 1,
+        "cases": [
+          {
+            "id": "rq-49",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-50",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-51",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-52",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-53",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-54",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-55",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-56",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-57",
+            "outcome": "false-answer"
+          },
+          {
+            "id": "rq-58",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-59",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-60",
+            "outcome": "correct-abstention"
+          }
+        ]
+      },
+      "holdout4": {
+        "minScore": 0.7,
+        "answerable": {
+          "total": 6,
+          "correct": 6,
+          "wrongPassage": 0,
+          "abstained": 0
+        },
+        "unsupported": {
+          "total": 6,
+          "abstained": 4,
+          "falseAnswers": 2
+        },
+        "answerableRecall": 1,
+        "cases": [
+          {
+            "id": "rq-61",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-62",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-63",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-64",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-65",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-66",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-67",
+            "outcome": "false-answer"
+          },
+          {
+            "id": "rq-68",
+            "outcome": "false-answer"
+          },
+          {
+            "id": "rq-69",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-70",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-71",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-72",
+            "outcome": "correct-abstention"
+          }
+        ]
+      }
+    },
+    "verified-all": {
+      "development": {
+        "minScore": 0.7,
+        "answerable": {
+          "total": 17,
+          "correct": 7,
+          "wrongPassage": 0,
+          "abstained": 10
+        },
+        "unsupported": {
+          "total": 7,
+          "abstained": 7,
+          "falseAnswers": 0
+        },
+        "answerableRecall": 0.4117647058823529,
+        "cases": [
+          {
+            "id": "rq-01",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-02",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-03",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-04",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-05",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-06",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-07",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-08",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-09",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-10",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-11",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-12",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-13",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-14",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-15",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-16",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-17",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-18",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-19",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-20",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-21",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-22",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-23",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-24",
+            "outcome": "correct-abstention"
+          }
+        ]
+      },
+      "holdout": {
+        "minScore": 0.7,
+        "answerable": {
+          "total": 6,
+          "correct": 4,
+          "wrongPassage": 0,
+          "abstained": 2
+        },
+        "unsupported": {
+          "total": 6,
+          "abstained": 6,
+          "falseAnswers": 0
+        },
+        "answerableRecall": 0.6666666666666666,
+        "cases": [
+          {
+            "id": "rq-25",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-26",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-27",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-28",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-29",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-30",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-31",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-32",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-33",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-34",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-35",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-36",
+            "outcome": "correct-abstention"
+          }
+        ]
+      },
+      "holdout2": {
+        "minScore": 0.7,
+        "answerable": {
+          "total": 6,
+          "correct": 5,
+          "wrongPassage": 0,
+          "abstained": 1
+        },
+        "unsupported": {
+          "total": 6,
+          "abstained": 6,
+          "falseAnswers": 0
+        },
+        "answerableRecall": 0.8333333333333334,
+        "cases": [
+          {
+            "id": "rq-37",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-38",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-39",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-40",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-41",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-42",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-43",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-44",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-45",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-46",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-47",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-48",
+            "outcome": "correct-abstention"
+          }
+        ]
+      },
+      "holdout3": {
+        "minScore": 0.7,
+        "answerable": {
+          "total": 6,
+          "correct": 4,
+          "wrongPassage": 0,
+          "abstained": 2
+        },
+        "unsupported": {
+          "total": 6,
+          "abstained": 6,
+          "falseAnswers": 0
+        },
+        "answerableRecall": 0.6666666666666666,
+        "cases": [
+          {
+            "id": "rq-49",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-50",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-51",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-52",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-53",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-54",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-55",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-56",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-57",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-58",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-59",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-60",
+            "outcome": "correct-abstention"
+          }
+        ]
+      },
+      "holdout4": {
+        "minScore": 0.7,
+        "answerable": {
+          "total": 6,
+          "correct": 6,
+          "wrongPassage": 0,
+          "abstained": 0
+        },
+        "unsupported": {
+          "total": 6,
+          "abstained": 6,
+          "falseAnswers": 0
+        },
+        "answerableRecall": 1,
+        "cases": [
+          {
+            "id": "rq-61",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-62",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-63",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-64",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-65",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-66",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-67",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-68",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-69",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-70",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-71",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-72",
+            "outcome": "correct-abstention"
+          }
+        ]
+      }
+    },
+    "select-all": {
+      "development": {
+        "minScore": 0.7,
+        "answerable": {
+          "total": 17,
+          "correct": 10,
+          "wrongPassage": 0,
+          "abstained": 7
+        },
+        "unsupported": {
+          "total": 7,
+          "abstained": 7,
+          "falseAnswers": 0
+        },
+        "answerableRecall": 0.5882352941176471,
+        "cases": [
+          {
+            "id": "rq-01",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-02",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-03",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-04",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-05",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-06",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-07",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-08",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-09",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-10",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-11",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-12",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-13",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-14",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-15",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-16",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-17",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-18",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-19",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-20",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-21",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-22",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-23",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-24",
+            "outcome": "correct-abstention"
+          }
+        ]
+      },
+      "holdout": {
+        "minScore": 0.7,
+        "answerable": {
+          "total": 6,
+          "correct": 4,
+          "wrongPassage": 0,
+          "abstained": 2
+        },
+        "unsupported": {
+          "total": 6,
+          "abstained": 6,
+          "falseAnswers": 0
+        },
+        "answerableRecall": 0.6666666666666666,
+        "cases": [
+          {
+            "id": "rq-25",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-26",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-27",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-28",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-29",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-30",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-31",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-32",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-33",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-34",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-35",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-36",
+            "outcome": "correct-abstention"
+          }
+        ]
+      },
+      "holdout2": {
+        "minScore": 0.7,
+        "answerable": {
+          "total": 6,
+          "correct": 5,
+          "wrongPassage": 0,
+          "abstained": 1
+        },
+        "unsupported": {
+          "total": 6,
+          "abstained": 6,
+          "falseAnswers": 0
+        },
+        "answerableRecall": 0.8333333333333334,
+        "cases": [
+          {
+            "id": "rq-37",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-38",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-39",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-40",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-41",
+            "outcome": "abstained"
+          },
+          {
+            "id": "rq-42",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-43",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-44",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-45",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-46",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-47",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-48",
+            "outcome": "correct-abstention"
+          }
+        ]
+      },
+      "holdout3": {
+        "minScore": 0.7,
+        "answerable": {
+          "total": 6,
+          "correct": 6,
+          "wrongPassage": 0,
+          "abstained": 0
+        },
+        "unsupported": {
+          "total": 6,
+          "abstained": 6,
+          "falseAnswers": 0
+        },
+        "answerableRecall": 1,
+        "cases": [
+          {
+            "id": "rq-49",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-50",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-51",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-52",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-53",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-54",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-55",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-56",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-57",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-58",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-59",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-60",
+            "outcome": "correct-abstention"
+          }
+        ]
+      },
+      "holdout4": {
+        "minScore": 0.7,
+        "answerable": {
+          "total": 6,
+          "correct": 6,
+          "wrongPassage": 0,
+          "abstained": 0
+        },
+        "unsupported": {
+          "total": 6,
+          "abstained": 5,
+          "falseAnswers": 1
+        },
+        "answerableRecall": 1,
+        "cases": [
+          {
+            "id": "rq-61",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-62",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-63",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-64",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-65",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-66",
+            "outcome": "correct"
+          },
+          {
+            "id": "rq-67",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-68",
+            "outcome": "false-answer"
+          },
+          {
+            "id": "rq-69",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-70",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-71",
+            "outcome": "correct-abstention"
+          },
+          {
+            "id": "rq-72",
+            "outcome": "correct-abstention"
+          }
+        ]
+      }
+    }
+  }
+}

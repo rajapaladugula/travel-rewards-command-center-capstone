@@ -1,0 +1,437 @@
+{
+  "description": "Synthetic retrieval questions labeled against the saved public Chase Sapphire Reserve snapshot. expectedHeading is the section that answers the question, or null when the snapshot has no supporting passage and the app should abstain. Cases tagged \"holdout\" were written and frozen before the verified-retrieval design was built; they are report-only and never used to tune thresholds or prompts. The first holdout exposed a false answer from the model judge alone, so it is now a regression set; \"holdout2\" was written and frozen before the distinctive-word safeguard was built. Success rule fixed in advance: ship a verified-retrieval variant only with zero false answers and zero wrong passages on every split. holdout2 exposed a false answer from the strict cutoff itself (\"travel\" overlap at 0.713), so it also became a regression set; \"holdout3\" (including near-miss questions that reuse words like travel and lounge) was frozen before verification was extended to strict matches. \"holdout4\" was frozen after the comparative-selection variant was designed on the development split and before that variant was run on any holdout; it is the only split that can fairly judge it. Near-miss unsupported questions reuse words that appear in the source.",
+  "cases": [
+    {
+      "id": "rq-01",
+      "question": "How much is the Lyft credit?",
+      "expectedHeading": "$120 in Lyft ride credits",
+      "split": "development"
+    },
+    {
+      "id": "rq-02",
+      "question": "When does the Lyft credit expire?",
+      "expectedHeading": "$120 in Lyft ride credits",
+      "split": "development"
+    },
+    {
+      "id": "rq-03",
+      "question": "Do I get Lyft rides covered?",
+      "expectedHeading": "$120 in Lyft ride credits",
+      "split": "development"
+    },
+    {
+      "id": "rq-04",
+      "question": "Do I get lounge access?",
+      "expectedHeading": "Lounge access",
+      "split": "development"
+    },
+    {
+      "id": "rq-05",
+      "question": "Can I bring guests into the lounge?",
+      "expectedHeading": "Lounge access",
+      "split": "development"
+    },
+    {
+      "id": "rq-06",
+      "question": "How many Priority Pass lounges can I use?",
+      "expectedHeading": "Lounge access",
+      "split": "development"
+    },
+    {
+      "id": "rq-07",
+      "question": "What is the benefit of the lounge?",
+      "expectedHeading": "Lounge access",
+      "split": "development"
+    },
+    {
+      "id": "rq-08",
+      "question": "Does the card reimburse TSA PreCheck?",
+      "expectedHeading": "Global Entry, TSA PreCheck, or NEXUS fee credit",
+      "split": "development"
+    },
+    {
+      "id": "rq-09",
+      "question": "How often can I get the Global Entry credit?",
+      "expectedHeading": "Global Entry, TSA PreCheck, or NEXUS fee credit",
+      "split": "development"
+    },
+    {
+      "id": "rq-10",
+      "question": "Does the NEXUS fee get refunded?",
+      "expectedHeading": "Global Entry, TSA PreCheck, or NEXUS fee credit",
+      "split": "development"
+    },
+    {
+      "id": "rq-11",
+      "question": "What is The Edit credit?",
+      "expectedHeading": "$500 credit for stays with The Edit",
+      "split": "development"
+    },
+    {
+      "id": "rq-12",
+      "question": "Is there a minimum stay for The Edit?",
+      "expectedHeading": "$500 credit for stays with The Edit",
+      "split": "development"
+    },
+    {
+      "id": "rq-13",
+      "question": "How much can I get back for hotel bookings through The Edit?",
+      "expectedHeading": "$500 credit for stays with The Edit",
+      "split": "development"
+    },
+    {
+      "id": "rq-14",
+      "question": "How does the travel credit reset?",
+      "expectedHeading": "$300 annual travel credit",
+      "split": "development"
+    },
+    {
+      "id": "rq-15",
+      "question": "Do travel credit purchases earn points?",
+      "expectedHeading": "$300 annual travel credit",
+      "split": "development"
+    },
+    {
+      "id": "rq-16",
+      "question": "Is the $300 credit per calendar year?",
+      "expectedHeading": "$300 annual travel credit",
+      "split": "development"
+    },
+    {
+      "id": "rq-17",
+      "question": "What counts for the annual travel credit?",
+      "expectedHeading": "$300 annual travel credit",
+      "split": "development"
+    },
+    {
+      "id": "rq-18",
+      "question": "Does this card earn a bonus on gasoline purchases?",
+      "expectedHeading": null,
+      "split": "development"
+    },
+    {
+      "id": "rq-19",
+      "question": "How many points do I earn on dining?",
+      "expectedHeading": null,
+      "split": "development"
+    },
+    {
+      "id": "rq-20",
+      "question": "Is there a foreign transaction fee?",
+      "expectedHeading": null,
+      "split": "development"
+    },
+    {
+      "id": "rq-21",
+      "question": "What is the sign-up bonus?",
+      "expectedHeading": null,
+      "split": "development"
+    },
+    {
+      "id": "rq-22",
+      "question": "Does the card include rental car insurance?",
+      "expectedHeading": null,
+      "split": "development"
+    },
+    {
+      "id": "rq-23",
+      "question": "What is the cash back rate?",
+      "expectedHeading": null,
+      "split": "development"
+    },
+    {
+      "id": "rq-24",
+      "question": "Does it cover trip cancellation?",
+      "expectedHeading": null,
+      "split": "development"
+    },
+    {
+      "id": "rq-25",
+      "question": "Does the lounge access include guests?",
+      "expectedHeading": "Lounge access",
+      "split": "holdout"
+    },
+    {
+      "id": "rq-26",
+      "question": "Which ride-share benefit lasts until 2027?",
+      "expectedHeading": "$120 in Lyft ride credits",
+      "split": "holdout"
+    },
+    {
+      "id": "rq-27",
+      "question": "Is there an airport lounge perk?",
+      "expectedHeading": "Lounge access",
+      "split": "holdout"
+    },
+    {
+      "id": "rq-28",
+      "question": "What is the Global Entry reimbursement amount?",
+      "expectedHeading": "Global Entry, TSA PreCheck, or NEXUS fee credit",
+      "split": "holdout"
+    },
+    {
+      "id": "rq-29",
+      "question": "How much does The Edit give per booking?",
+      "expectedHeading": "$500 credit for stays with The Edit",
+      "split": "holdout"
+    },
+    {
+      "id": "rq-30",
+      "question": "Is the travel credit based on when I opened the account?",
+      "expectedHeading": "$300 annual travel credit",
+      "split": "holdout"
+    },
+    {
+      "id": "rq-31",
+      "question": "Does the card have a welcome offer?",
+      "expectedHeading": null,
+      "split": "holdout"
+    },
+    {
+      "id": "rq-32",
+      "question": "What is the interest rate on purchases?",
+      "expectedHeading": null,
+      "split": "holdout"
+    },
+    {
+      "id": "rq-33",
+      "question": "Do I earn points on groceries?",
+      "expectedHeading": null,
+      "split": "holdout"
+    },
+    {
+      "id": "rq-34",
+      "question": "Does it include cell phone protection?",
+      "expectedHeading": null,
+      "split": "holdout"
+    },
+    {
+      "id": "rq-35",
+      "question": "What is my credit limit?",
+      "expectedHeading": null,
+      "split": "holdout"
+    },
+    {
+      "id": "rq-36",
+      "question": "Can I add authorized users?",
+      "expectedHeading": null,
+      "split": "holdout"
+    },
+    {
+      "id": "rq-37",
+      "question": "Are there monthly credits for ride-hailing?",
+      "expectedHeading": "$120 in Lyft ride credits",
+      "split": "holdout2"
+    },
+    {
+      "id": "rq-38",
+      "question": "Can I use Priority Pass lounges?",
+      "expectedHeading": "Lounge access",
+      "split": "holdout2"
+    },
+    {
+      "id": "rq-39",
+      "question": "Does the Global Entry credit renew every four years?",
+      "expectedHeading": "Global Entry, TSA PreCheck, or NEXUS fee credit",
+      "split": "holdout2"
+    },
+    {
+      "id": "rq-40",
+      "question": "Do hotel bookings through The Edit require a two-night stay?",
+      "expectedHeading": "$500 credit for stays with The Edit",
+      "split": "holdout2"
+    },
+    {
+      "id": "rq-41",
+      "question": "Can I earn points on purchases covered by the travel credit?",
+      "expectedHeading": "$300 annual travel credit",
+      "split": "holdout2"
+    },
+    {
+      "id": "rq-42",
+      "question": "What is the annual cap on The Edit credit?",
+      "expectedHeading": "$500 credit for stays with The Edit",
+      "split": "holdout2"
+    },
+    {
+      "id": "rq-43",
+      "question": "Does the card cover baggage delay?",
+      "expectedHeading": null,
+      "split": "holdout2"
+    },
+    {
+      "id": "rq-44",
+      "question": "Is there a fee for additional cardholders?",
+      "expectedHeading": null,
+      "split": "holdout2"
+    },
+    {
+      "id": "rq-45",
+      "question": "What is the APR for cash advances?",
+      "expectedHeading": null,
+      "split": "holdout2"
+    },
+    {
+      "id": "rq-46",
+      "question": "Do I get a free night certificate?",
+      "expectedHeading": null,
+      "split": "holdout2"
+    },
+    {
+      "id": "rq-47",
+      "question": "Does it offer purchase protection?",
+      "expectedHeading": null,
+      "split": "holdout2"
+    },
+    {
+      "id": "rq-48",
+      "question": "How are points redeemed for travel?",
+      "expectedHeading": null,
+      "split": "holdout2"
+    },
+    {
+      "id": "rq-49",
+      "question": "Is there a monthly allowance for Lyft rides?",
+      "expectedHeading": "$120 in Lyft ride credits",
+      "split": "holdout3"
+    },
+    {
+      "id": "rq-50",
+      "question": "How many guests can I bring into an airport lounge?",
+      "expectedHeading": "Lounge access",
+      "split": "holdout3"
+    },
+    {
+      "id": "rq-51",
+      "question": "Does the card pay for a TSA PreCheck application?",
+      "expectedHeading": "Global Entry, TSA PreCheck, or NEXUS fee credit",
+      "split": "holdout3"
+    },
+    {
+      "id": "rq-52",
+      "question": "What is the minimum stay to use The Edit credit?",
+      "expectedHeading": "$500 credit for stays with The Edit",
+      "split": "holdout3"
+    },
+    {
+      "id": "rq-53",
+      "question": "Does the $300 credit apply to travel purchases?",
+      "expectedHeading": "$300 annual travel credit",
+      "split": "holdout3"
+    },
+    {
+      "id": "rq-54",
+      "question": "How much total can I get annually through The Edit?",
+      "expectedHeading": "$500 credit for stays with The Edit",
+      "split": "holdout3"
+    },
+    {
+      "id": "rq-55",
+      "question": "How do I book travel through the card's portal?",
+      "expectedHeading": null,
+      "split": "holdout3"
+    },
+    {
+      "id": "rq-56",
+      "question": "Are there travel insurance benefits when I book flights?",
+      "expectedHeading": null,
+      "split": "holdout3"
+    },
+    {
+      "id": "rq-57",
+      "question": "What is the points multiplier on travel purchases?",
+      "expectedHeading": null,
+      "split": "holdout3"
+    },
+    {
+      "id": "rq-58",
+      "question": "Does the card have a foreign currency exchange fee?",
+      "expectedHeading": null,
+      "split": "holdout3"
+    },
+    {
+      "id": "rq-59",
+      "question": "Is there a spending requirement to keep the lounge access?",
+      "expectedHeading": null,
+      "split": "holdout3"
+    },
+    {
+      "id": "rq-60",
+      "question": "Can I transfer points to airline partners?",
+      "expectedHeading": null,
+      "split": "holdout3"
+    },
+    {
+      "id": "rq-61",
+      "question": "Until when are the Lyft credits available?",
+      "expectedHeading": "$120 in Lyft ride credits",
+      "split": "holdout4"
+    },
+    {
+      "id": "rq-62",
+      "question": "Are Chase Sapphire Lounges included?",
+      "expectedHeading": "Lounge access",
+      "split": "holdout4"
+    },
+    {
+      "id": "rq-63",
+      "question": "How often can the NEXUS application fee be reimbursed?",
+      "expectedHeading": "Global Entry, TSA PreCheck, or NEXUS fee credit",
+      "split": "holdout4"
+    },
+    {
+      "id": "rq-64",
+      "question": "Is a two-night minimum required for The Edit?",
+      "expectedHeading": "$500 credit for stays with The Edit",
+      "split": "holdout4"
+    },
+    {
+      "id": "rq-65",
+      "question": "Does the $300 credit renew each account anniversary year?",
+      "expectedHeading": "$300 annual travel credit",
+      "split": "holdout4"
+    },
+    {
+      "id": "rq-66",
+      "question": "How much can I get per prepaid booking with The Edit?",
+      "expectedHeading": "$500 credit for stays with The Edit",
+      "split": "holdout4"
+    },
+    {
+      "id": "rq-67",
+      "question": "How much does the lounge access cost per visit?",
+      "expectedHeading": null,
+      "split": "holdout4"
+    },
+    {
+      "id": "rq-68",
+      "question": "What travel purchases earn extra points?",
+      "expectedHeading": null,
+      "split": "holdout4"
+    },
+    {
+      "id": "rq-69",
+      "question": "Is there a Lyft membership upgrade?",
+      "expectedHeading": null,
+      "split": "holdout4"
+    },
+    {
+      "id": "rq-70",
+      "question": "Does the Global Entry credit also cover my family?",
+      "expectedHeading": null,
+      "split": "holdout4"
+    },
+    {
+      "id": "rq-71",
+      "question": "Can I get the travel credit on a cruise booking?",
+      "expectedHeading": null,
+      "split": "holdout4"
+    },
+    {
+      "id": "rq-72",
+      "question": "What happens if I cancel The Edit booking?",
+      "expectedHeading": null,
+      "split": "holdout4"
+    }
+  ]
+}

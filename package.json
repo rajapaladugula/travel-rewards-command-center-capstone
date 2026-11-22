@@ -8,7 +8,8 @@
   "scripts": {
     "test": "node --test",
     "demo": "node src/demo.mjs",
-    "ui": "node src/server.mjs"
+    "ui": "node src/server.mjs",
+    "eval:retrieval": "node src/retrieval-eval.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.2"
