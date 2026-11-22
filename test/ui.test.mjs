@@ -107,3 +107,12 @@ test('page warns when the results shown belong to an earlier question', async ()
     assert.match(script, /lastComparedQuestion/);
   });
 });
+
+test('refusal wording names verification, not just a relevance threshold', async () => {
+  await withServer(async (baseUrl) => {
+    const script = await (await fetch(`${baseUrl}/app.js`)).text();
+    assert.match(script, /No passage could be verified as answering this question/);
+    assert.doesNotMatch(script, /No source passed the relevance threshold/);
+    assert.doesNotMatch(script, /No passage met the relevance threshold/);
+  });
+});

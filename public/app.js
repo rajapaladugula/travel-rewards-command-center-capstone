@@ -33,7 +33,7 @@ function renderEvidence(evidence, recordAnswer = '') {
   if (!evidence.length) {
     const empty = document.createElement('p');
     empty.className = 'empty-state';
-    empty.textContent = recordAnswer === 'help' ? 'No source was needed: this explains what the assistant can do.' : recordAnswer ? 'No public passage was needed: this comes from the synthetic household record.' : 'No passage met the relevance threshold. The grounded answer should not guess.';
+    empty.textContent = recordAnswer === 'help' ? 'No source was needed: this explains what the assistant can do.' : recordAnswer ? 'No public passage was needed: this comes from the synthetic household record.' : 'No passage could be verified as answering this question (similarity, keyword and model checks). The grounded answer should not guess.';
     evidenceList.append(empty);
     return;
   }
@@ -127,7 +127,7 @@ form.addEventListener('submit', async (event) => {
     if (data.status === 'overview') setStatus('Comparison complete. This lists every section of the saved source; ask about one for its terms.', 'success');
     else if (data.status === 'help') setStatus('Comparison complete. This describes what the assistant can and cannot do; no source was needed.', 'success');
     else if (data.status === 'record-answer') setStatus('Comparison complete. This answer comes from the synthetic household record, so no public passage was needed.', 'success');
-    else setStatus(data.evidence?.length ? 'Comparison complete. Retrieved evidence is shown below.' : 'Comparison complete. No source passed the relevance threshold.', data.evidence?.length ? 'success' : '');
+    else setStatus(data.evidence?.length ? 'Comparison complete. Retrieved evidence is shown below.' : 'Comparison complete. No passage could be verified as answering this question.', data.evidence?.length ? 'success' : '');
   } catch (error) {
     setStatus(error.message || 'The local assistant could not complete the request.', 'error');
   } finally {
